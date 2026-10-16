@@ -2,12 +2,16 @@ package com.bolivar.polizas.repository;
 
 import com.bolivar.polizas.model.Riesgo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface RiesgoRepository extends JpaRepository<Riesgo, Long> {
 
-    // Query derivada: Spring lee el NOMBRE del metodo y arma la consulta solo.
-    // findBy + Poliza + Id  ->  SELECT * FROM riesgo WHERE poliza_id = ?
-    List<Riesgo> findByPolizaId(Long polizaId);
+    // Consulta explicita: trae los riesgos cuya poliza tenga ese id.
+    // Se escribe a mano (y no como query derivada por nombre) porque Riesgo
+    // tiene un getter getPolizaId() para el JSON, y Spring lo confundiria con un atributo.
+    @Query("SELECT r FROM Riesgo r WHERE r.poliza.id = :polizaId")
+    List<Riesgo> findByPolizaId(@Param("polizaId") Long polizaId);
 }
