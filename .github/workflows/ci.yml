@@ -1,0 +1,19 @@
+# Integracion continua: GitHub compila y prueba el proyecto en cada push.
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest          # maquina virtual Linux de GitHub
+    steps:
+      - uses: actions/checkout@v4   # descarga el codigo del repo
+      - uses: actions/setup-java@v4 # instala Java 17
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven              # guarda las librerias para que la siguiente vez sea mas rapido
+      - run: mvn -B verify          # compila + corre las pruebas; si una falla, el build queda en rojo
