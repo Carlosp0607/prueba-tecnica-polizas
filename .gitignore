@@ -1,0 +1,11 @@
+# Archivos que Git NO debe subir al repositorio
+
+# Carpeta donde Maven deja el codigo compilado
+target/
+
+# Configuracion del editor IntelliJ IDEA
+.idea/
+*.iml
+
+# Configuracion del editor VS Code
+.vscode/
