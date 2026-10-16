@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- pom.xml: lista de ingredientes del proyecto. Maven lo lee para saber
+     que librerias descargar y como compilar. Equivale al requirements.txt de Python. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Hereda la configuracion base de Spring Boot 3.3.5.
+         Gracias a esto no hay que poner version a cada dependencia de abajo. -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.3.5</version>
+        <relativePath/>
+    </parent>
+
+    <!-- Identidad del proyecto: organizacion (groupId), nombre (artifactId) y version -->
+    <groupId>com.bolivar</groupId>
+    <artifactId>polizas</artifactId>
+    <version>1.0.0</version>
+    <name>polizas</name>
+    <description>API de gestion de polizas - Prueba tecnica</description>
+
+    <!-- Version de Java con la que se compila -->
+    <properties>
+        <java.version>17</java.version>
+    </properties>
+
+    <dependencies>
+        <!-- API REST: rutas HTTP, JSON y servidor Tomcat embebido -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- JPA/Hibernate: guardar y leer clases Java en la base de datos sin escribir SQL a mano -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- H2: base de datos en memoria. Se crea al arrancar y se borra al apagar.
+             scope runtime = solo se necesita al ejecutar, no al compilar -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Herramientas de pruebas: JUnit 5, Mockito y MockMvc.
+             scope test = solo se usa al correr las pruebas -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Permite correr la app con "mvn spring-boot:run" y empaquetarla en un .jar ejecutable -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
